@@ -1,31 +1,33 @@
 #!/bin/bash
-# set -xeo pipefail
+set -eo pipefail
 
 #####################################
-# Script to run the Linux Resource Monitor
+# Linux Resource Monitor Launcher
 # Author: Salman Faris
-# Version: v1.0
-# Description: This script clones the Linux Resource Monitor repository and runs both backend and frontend.
+# Version: v1.1
+# Cross-platform script (Linux/macOS/WSL/Git Bash)
 #####################################
 
-# ----------------------
-# Run Backend
-# ----------------------
-cd backend
+# ------------- BACKEND -------------
+cd backend || exit 1
+
+python3 -m venv venv
+source venv/bin/activate
 
 pip install -r requirements.txt
-
 uvicorn main:app --host 0.0.0.0 --port 8000 &
 
-# ----------------------
-# Run Frontend
-# ----------------------
-cd ../frontend
+# ------------- FRONTEND -------------
+cd ../frontend || exit 1
 
 npm install
-
 npm run dev &
 
+# ------------- OPEN IN BROWSER -------------
 sleep 2
-
-xdg-open http://localhost:5173
+case "$OSTYPE" in
+  linux*)   xdg-open http://localhost:5173 ;;
+  darwin*)  open http://localhost:5173 ;;  # macOS
+  cygwin* | msys* | win32) start http://localhost:5173 ;; # Git Bash
+  *) echo "Please open your browser and go to http://localhost:5173" ;;
+esac
