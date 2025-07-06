@@ -16,6 +16,14 @@ async def usage():
         "cpu_freq": psutil.cpu_freq(),
         "v_memory": psutil.virtual_memory(),
         "swap_memory": psutil.swap_memory(),
-        "memory_usage": "30%",
-        "disk_usage": "40%"
+        "disk_usage": psutil.disk_usage('/'),
+        "net_io": psutil.net_io_counters(),
+        "net_connection": psutil.net_connections(),
+        "net_stats": psutil.net_if_stats(),
+        "sensor_temperatures": psutil.sensors_temperatures(),
+        "sensor_fans": psutil.sensors_fans(),
+        "sensor_battery": psutil.sensors_battery(),
+        "boot_time": psutil.boot_time(),
+        "user": psutil.users(),
+        "process_iter": psutil.process_iter()
     }
