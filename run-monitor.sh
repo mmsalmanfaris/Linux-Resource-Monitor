@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeo pipefail
+# set -xeo pipefail
 
 #####################################
 # Script to run the Linux Resource Monitor
