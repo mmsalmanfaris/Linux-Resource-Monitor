@@ -8,10 +8,6 @@ set -xeo pipefail
 # Description: This script clones the Linux Resource Monitor repository and runs both backend and frontend.
 #####################################
 
-# Clone the repository
-git clone https://github.com/mmsalmanfaris/Linux-Resource-Monitor.git
-cd Linux-Resource-Monitor
-
 # ----------------------
 # Run Backend
 # ----------------------
