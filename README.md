@@ -90,7 +90,7 @@ Linux-Resource-Monitor/
 ├── backend/         # FastAPI backend (system stats API)
 ├── frontend/        # React + Tailwind frontend (dashboard UI)
 ├── run-monitor.sh   # Script for linux/wsl
-├── run-monitor.sh   # Script for Windows
+├── run-monitor.bat   # Script for Windows
 └── README.md
 ```
 
