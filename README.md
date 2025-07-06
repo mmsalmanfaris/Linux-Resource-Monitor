@@ -2,6 +2,12 @@
 
 A modern web-based system monitoring dashboard built with **FastAPI** (backend) and **React + Tailwind** (frontend). Monitor CPU, memory, disk, battery, temperature, network, and more with real-time charts and visuals.
 
+
+
+![A modern web-based system monitoring dashboard built with FastAPI (backend) and React + Tailwind (frontend)  Monitor CPU, memory, disk, battery, temperature, network, and more with real-time charts and visuals](https://github.com/user-attachments/assets/3633bf8d-dae8-4797-b669-6dc40a90c43d)
+
+
+
 ---
 
 ## 🌟 Features
