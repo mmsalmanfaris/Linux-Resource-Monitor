@@ -6,7 +6,8 @@ import {
     BatteryCharging,
     Thermometer,
     Plug2,
-    Battery
+    Battery,
+    ServerCog
 } from "lucide-react"
 import { PieChart, Pie, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell } from "recharts"
 
@@ -87,7 +88,7 @@ function TemperatureChartCard({ sensor_temperatures }) {
                     <YAxis type="category" dataKey="name" width={150} />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="temperature" radius={[4, 4, 0, 0]}>
+                    <Bar dataKey="temperature" radius={[0, 4, 4, 0]}>
                         {chartData.map((entry, index) => (
                             <Cell key={index} fill={TEMP_COLORS[index % TEMP_COLORS.length]} />
                         ))}
@@ -129,12 +130,23 @@ function Dashboard({ data }) {
 
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold mb-6 text-center">
-                Linux System Monitor
-            </h1>
+        <div className=" bg-gray-100  min-h-screen">
+            <div className="bg-black flex justify-between items-center px-6 py-3 flex-wrap gap-3">
+                <span className="bg-blue-500 text-white text-xs font-medium px-3 py-1 rounded-full">
+                    Time: {new Date().toLocaleTimeString()}
+                </span>
 
-            <div className="flex flex-wrap gap-6">
+                <h1 className="text-white text-3xl font-bold text-center ps-25">
+                    Linux Resource Monitor
+                </h1>
+
+                <span className="bg-green-600 text-white text-xs font-medium px-3 py-1 rounded-full">
+                    Boot Time: {new Date(data.boot_time * 1000).toLocaleString()}
+                </span>
+            </div>
+
+
+            <div className="p-6 flex justify-center flex-wrap gap-6">
                 <ResourceCard icon={Cpu} title="CPU" chartData={cpuChart}>
                     <p>Usage: {data.cpu_percent}%</p>
                     <p>Cores: {data.cpu_count}</p>
@@ -190,7 +202,7 @@ function Dashboard({ data }) {
                                 <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                                     <Cell
                                         fill={
-                                            batteryLevel > 60
+                                            batteryLevel > 80
                                                 ? "#10b981"
                                                 : batteryLevel > 20
                                                     ? "#facc15"
@@ -207,7 +219,36 @@ function Dashboard({ data }) {
 
                 <TemperatureChartCard sensor_temperatures={data.sensor_temperatures} />
 
+                <ResourceCard icon={ServerCog} title="Top Processes">
+                    <div className="overflow-y-auto pr-2 text-sm text-gray-700">
+                        <table className="w-full">
+                            <thead>
+                                <tr className="text-left border-b">
+                                    {/* <th className="pr-4">PID</th> */}
+                                    <th className="pr-4">Name</th>
+                                    <th>User</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Object.entries(data.running_process)
+                                    .slice(0, 8)
+                                    .map(([pid, proc]) => (
+                                        <tr key={pid} className="border-b">
+                                            {/* <td className="py-1 pr-4 text-blue-600 font-mono">{pid}</td> */}
+                                            <td className="py-1 pr-4">{proc.name}</td>
+                                            <td className="py-1 text-gray-500">{proc.username}</td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </ResourceCard>
             </div>
+
+            <footer className="text-center py-4 text-sm bg-black text-white mt-8">
+                Open Source - <a href="https://github.com/mmsalmanfaris" target="_blank" rel="noopener noreferrer" className="hover:underline">mmsalmanfaris</a>
+            </footer>
+
         </div>
     )
 }

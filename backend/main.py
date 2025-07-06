@@ -28,5 +28,5 @@ async def usage():
         "sensor_temperatures": psutil.sensors_temperatures(),
         "sensor_battery": psutil.sensors_battery(),
         "boot_time": psutil.boot_time(),
-        "user": psutil.users()
+        "running_process": {p.pid: p.info for p in psutil.process_iter(['name', 'username'])}
     }
