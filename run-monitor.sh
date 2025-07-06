@@ -5,7 +5,7 @@ set -eo pipefail
 # Linux Resource Monitor Launcher
 # Author: Salman Faris
 # Version: v1.1
-# Cross-platform script (Linux/macOS/WSL/Git Bash)
+# Cross-platform script (Linux/macOS/WSL)
 #####################################
 
 # ------------- BACKEND -------------
