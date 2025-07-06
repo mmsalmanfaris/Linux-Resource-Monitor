@@ -25,9 +25,23 @@ npm run dev &
 
 # ------------- OPEN IN BROWSER -------------
 sleep 2
+
 case "$OSTYPE" in
-  linux*)   xdg-open http://localhost:5173 ;;
-  darwin*)  open http://localhost:5173 ;;  # macOS
-  cygwin* | msys* | win32) start http://localhost:5173 ;; # Git Bash
-  *) echo "Please open your browser and go to http://localhost:5173" ;;
+  linux*)
+    if command -v xdg-open >/dev/null && [ -n "$DISPLAY" ]; then
+      xdg-open http://localhost:5173
+    else
+      echo "Linux (no GUI): Open your browser and go to http://localhost:5173"
+    fi
+    ;;
+  darwin*)  # macOS
+    open http://localhost:5173
+    ;;
+  cygwin* | msys* | win32)
+    start http://localhost:5173
+    ;;
+  *)
+    echo "Unknown OS: Please open your browser and go to http://localhost:5173"
+    ;;
 esac
+
