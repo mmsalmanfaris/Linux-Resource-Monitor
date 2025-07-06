@@ -1,8 +1,16 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import psutil
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
@@ -24,6 +32,5 @@ async def usage():
         "sensor_fans": psutil.sensors_fans(),
         "sensor_battery": psutil.sensors_battery(),
         "boot_time": psutil.boot_time(),
-        "user": psutil.users(),
-        "process_iter": psutil.process_iter()
+        "user": psutil.users()
     }

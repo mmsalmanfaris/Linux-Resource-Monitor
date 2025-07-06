@@ -20,11 +20,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Docker
-*.pid
-*.db
-*.sock
-
 # Logs
 logs/
 *.log
